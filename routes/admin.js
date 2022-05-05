@@ -4,12 +4,16 @@ const adminController=require('../controllers/admin');
 
 const router=express.Router();
 
-router.get('/addbook',adminController.getAddBook);
+router.get('/add-book',adminController.getAddBook);
 
-router.post('/addbook',adminController.postAddBook);
+router.post('/add-book',adminController.postAddBook);
 
-router.post('/editbook',adminController.postEditBook);
+router.get('/edit-book',adminController.getEditBook);
 
-router.get('/adminbooks',adminController.getAdminBooks);
+router.post('/edit-book',adminController.postEditBook);
+
+router.get('/delete-book',adminController.getDeleteBook);
+
+router.get('/library',adminController.getAdminBooks);
 
 module.exports=router;

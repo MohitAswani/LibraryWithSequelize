@@ -1,7 +1,45 @@
 <%- include('../includes/head.ejs') %>
-</head>
+    </head>
 
-<body>
-    <%- include('../includes/navbar.ejs') %>
-    
-<%- include('../includes/end.ejs') %> 
+    <body>
+        <%- include('../includes/navbar.ejs') %>
+
+        <% if(books.length>0) { %> 
+            <ul class="cards">
+                <% books.forEach(book=>{ %> 
+                    <li>
+                    <a href="" class="card">
+                        <img src="<%= book.image %> " class="card__image" alt="" />
+                        <div class="card__overlay">
+                            <div class="card__header">
+                                <div class="card__header-text">
+                                    <h3 class="card__title"><%= book.title %> </h3>
+                                    <span class="card__status">$<%= book.price %> </span>
+                                    <div class="card__actions">
+                                        <form action="/admin/edit-book" method="get">
+                                            <input type="hidden" name="id" value="<%= book.id %>">
+                                            <input type="hidden" name="edit" value="true">
+                                            <button class="btn" type="submit">Edit</button>
+                                        </form>
+                                        <form action="/admin/delete-book" method="get">
+                                            <input type="hidden" name="id" value="<%= book.id %>">
+                                            <button class="btn" type="submit">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="card__description"><%= book.description %> </p>
+                        </div>
+                    </a>
+                    </li>
+                    <% }); %> 
+            </ul>
+        <% } else { %>
+            <div class="not_found">
+                <img class="book_img" src="../images/bookshelf.svg" alt="book images" srcset="">
+                <h4>No books found.</h4>
+            </div>
+        <% } %>  
+            
+
+<%- include('../includes/end.ejs') %>
