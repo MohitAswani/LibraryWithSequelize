@@ -45,9 +45,11 @@ Book.belongsTo(User,{constraints:true,onDelete:'CASCADE'});
 User.hasMany(Book);
 
 User.hasOne(Cart);
-
 Cart.belongsToMany(Book,{through:CartItem});
 
+Loan.belongsTo(User);
+User.hasMany(Loan);
+Loan.belongsToMany(Book,{through:LoanItem});
 
 let fetchedUser;
 sequelize

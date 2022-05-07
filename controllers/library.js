@@ -93,3 +93,50 @@ exports.postDeleteFromCart=(req,res,next)=>{
             console.log(err);
         })
 }
+
+exports.getLoan=(req,res,next)=>{
+    
+    req.user.getLoans({include:['books']})
+    .then(loans=>{
+        res.render('library/loaned.ejs',{
+            path:'/loaned',
+            pageTitle:'Loans',
+            loans:loans
+        })
+    })
+    .catch(err=>{
+        console.log(err);
+    });
+}
+
+exports.postLoan=(req,res,next)=>{
+
+    let fetchedCart;
+    req.user.getCart()
+    .then(cart=>{
+        fetchedCart=cart;
+        return cart.getBooks();
+    })
+    .then(books=>{
+        return req.user.createLoan()
+            .then(loan=>{
+                return loan.addBooks(books.map(book=>{
+                    book.loanItem={quantity:book.cartItem.quantity};
+                    return book;
+                }))
+            })
+            .catch(err=>{
+                console.log(err);
+            })
+    })
+    .then(result=>{
+        console.log('LOAN CREATED');
+        return fetchedCart.setBooks(null);
+    })
+    .then(result=>{
+        res.redirect('/cart');
+    })
+    .catch(err=>{
+        console.log(err);
+    })
+}

@@ -14,6 +14,8 @@ router.get('/cart',libraryController.getCart);
 
 router.post('/cart-delete-item',libraryController.postDeleteFromCart);
 
-router.get('/loaned');
+router.post('/create-loan',libraryController.postLoan);
+
+router.get('/loaned',libraryController.getLoan);
 
 module.exports=router;

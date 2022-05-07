@@ -20,6 +20,10 @@ body {
   list-style-type: none;
 }
 
+.cards li{
+  min-height: 400px;
+}
+
 .card {
   width: 90%;
   height: 80%;
@@ -166,5 +170,9 @@ body {
 }
 
 .cart-main{
+  margin: 6% 4%;
+}
+
+.loan-main{
   margin: 6% 4%;
 }
