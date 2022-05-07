@@ -36,12 +36,15 @@ exports.getEditBook = (req, res, next) => {
     req.user.getBooks({ where: { id: bookId } })
         .then(books => {
             const book = books[0];
-            res.render('admin/addbooks', {
-                pageTitle: 'Add a book',
-                path: '/admin/add-book',
-                editing: true,
-                book: book
-            });
+            if(book)
+            {
+                res.render('admin/addbooks', {
+                    pageTitle: 'Add a book',
+                    path: '/admin/add-book',
+                    editing: true,
+                    book: book
+                });
+            }
 
         })
 }

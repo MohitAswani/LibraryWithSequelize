@@ -59,8 +59,9 @@ main{
 .form-control input{
     border:2px solid black;
     font:inherit;
-    border-radius: 5px;
+    border-radius: 30px;
     width: 60vw;
+    padding: 15px;
 }
 button{
     margin:0.5rem 5%;

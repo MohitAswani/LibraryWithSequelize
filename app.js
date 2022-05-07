@@ -44,6 +44,12 @@ app.use(errorController.getError);
 Book.belongsTo(User,{constraints:true,onDelete:'CASCADE'});
 User.hasMany(Book);
 
+User.hasOne(Cart);
+
+Cart.belongsToMany(Book,{through:CartItem});
+
+
+let fetchedUser;
 sequelize
     // .sync({force:true}) 
     .sync()
@@ -54,10 +60,21 @@ sequelize
         if(!user){
             return User.create({name:'Mohit',email:'aswanim96@gmail.com'})
         }
-
         return Promise.resolve(user);
     })
     .then(user=>{
+        fetchedUser=user;
+        return Cart.findAll({where:{userId:user.id}});
+    })
+    .then(carts=>{
+        if(!carts[0])
+        {
+            return fetchedUser.createCart();
+        }
+
+        return Promise.resolve(carts[0]);
+    })
+    .then(cart=>{
         console.log('Connection successful');
         app.listen(3000);
     })
